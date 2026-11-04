@@ -1,21 +1,21 @@
 #include <gtest/gtest.h>
 
-#include "Bus.h"
-#include "Cpu6502.h"
+#include "bus.h"
+#include "cpu.h"
 
 class LoadAccumulatorTest : public ::testing::Test {
     protected:
-    MemoryBus mem{};
-    Cpu6502 cpu{&mem};
+    MemoryBus mem;
+    CPU cpu{&mem};
 
     void SetUp() override {
-        Cpu6502::CPUState cpuState{
-            .ProgramCounter = 0x8000,
-            .Accumulator = 0,
-            .XRegister = 0,
-            .YRegister = 0,
-            .StatusRegister = 0,
-            .StackPointer = 0,
+        CPU::CPUState cpuState{
+            .program_counter_value = 0x8000,
+            .accumulator_value = 0x00,
+            .x_register_value = 0x00,
+            .y_register_value = 0x00,
+            .status_register_value = 0x00,
+            .stack_pointer_value = 0x00,
         };
 
         cpu.SetCPUState(cpuState);
@@ -43,13 +43,13 @@ TEST_F(LoadAccumulatorTest, ZeroPage) {
 };
 
 TEST_F(LoadAccumulatorTest, ZeroPageX) {
-    Cpu6502::CPUState cpuState{
-        .ProgramCounter = 0x8000,
-        .Accumulator = 0,
-        .XRegister = 0x0F,
-        .YRegister = 0,
-        .StatusRegister = 0,
-        .StackPointer = 0,
+    CPU::CPUState cpuState{
+        .program_counter_value = 0x8000,
+        .accumulator_value = 0x00,
+        .x_register_value = 0x0F,
+        .y_register_value = 0x00,
+        .status_register_value = 0x00,
+        .stack_pointer_value = 0x00,
     };
 
     cpu.SetCPUState(cpuState);

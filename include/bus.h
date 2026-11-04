@@ -6,14 +6,19 @@
 #define INC_6502_EMULATOR_BUS_H
 
 #include <array>
-#include <cstddef>
 #include <cstdint>
+
+#include "types.h"
+
+using namespace cpu_6502;
 
 class Bus {
 public:
     virtual ~Bus() = default;
-    virtual uint8_t Read(uint16_t addr) = 0;
-    virtual void Write(uint16_t addr, uint8_t data) = 0;
+    virtual Byte ReadByte(Word addr) = 0;
+    virtual void WriteByte(Word addr, Byte data) = 0;
+    virtual Word ReadWord(Word addr) = 0;
+    virtual void WriteWord(Word addr, Word data) = 0;
 };
 
 class MemoryBus : public Bus {
@@ -21,8 +26,10 @@ class MemoryBus : public Bus {
 
 public:
     ~MemoryBus() override = default;
-    uint8_t Read(uint16_t addr) override;
-    void Write(uint16_t addr, uint8_t data) override;
+    virtual Byte ReadByte(Word addr) = 0;
+    virtual void WriteByte(Word addr, Byte data) = 0;
+    virtual Word ReadWord(Word addr) = 0;
+    virtual void WriteWord(Word addr, Word data) = 0;
     void LoadProgram(uint16_t addr, const std::array<uint8_t, 65536> &program);
 };
 

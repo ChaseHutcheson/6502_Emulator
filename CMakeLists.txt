@@ -16,8 +16,10 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(6502_Emulator
         main.cpp
-        src/Bus.cpp
-        src/Cpu6502.cpp)
+        src/bus.cpp
+        src/cpu.cpp
+        include/types.h
+)
 target_include_directories(6502_Emulator PRIVATE include)
 target_compile_features(6502_Emulator PRIVATE cxx_std_20)
 target_link_libraries(6502_Emulator PRIVATE  GTest::gtest_main)
